@@ -1,0 +1,53 @@
+*{
+  background-color: rgb(129, 173, 173);
+}
+
+h1{
+  background-color: rgb(30, 87, 88);
+  font-size:6rem;
+  text-align: center;
+  width: 7rem;
+  border-radius: 50%;
+  height: 7rem;
+}
+
+.mainBody{
+  height:20rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* border:2px solid black;  */
+}
+
+.numBer{
+  /* border: 2px solid black; */
+  display: flex;
+  width: 40rem;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+.buttons{
+   display: flex;
+  justify-content: space-around;
+  width: 20rem;
+  height: 2rem;
+}
+
+.buttons button{
+ 
+  border-radius: 3rem;
+  background-color: blueviolet;
+  gap: 5px;
+  width: 6rem;
+  border: 2px solid black;
+}
+.buttons button:active{
+  border-radius: 3rem;
+  background-color: rgb(59, 4, 110);
+  color: azure;
+  gap: 5px;
+  width: 6rem;
+  border: 2px solid black;
+}
