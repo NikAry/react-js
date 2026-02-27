@@ -1,33 +1,53 @@
+import axios from 'axios'
+import { useEffect } from 'react'
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [responseItem,setResponseItem] = useState([])
+  const [index,setIndex] = useState(1)
+  const fetcher = async()=>{
+      const response = await axios.get(`https://picsum.photos/v2/list?page=${index}&limit=50`)
+      setResponseItem(response.data)
+      
+  }
+
+  useEffect(function(){
+    fetcher()
+  },[index])
+
+    let responsePrint = 'loading...'
+
+  if (responseItem.length>0) {
+    responsePrint = responseItem.map(function(elem,idx){
+      return <a href={elem.download_url}>
+        <div className='h-35 w-40 mt-5 overflow-hidden flex flex-col justify-between items-center' key={idx}>
+          <img className='h-30 w-40 object-cover' src={elem.download_url} alt="img here" />
+          <h2 className='font-bold '>{elem.author}</h2>
+        </div>
+      </a>
+    })
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className='font-bold text-2xl flex w-full justify-center backdrop-blur-xl top-0 fixed'>Gallary App</div>
+    <div className='flex flex-wrap gap-4 m-3 h-max'>{responsePrint}</div>
+    <div className='flex gap-30 justify-center'>
+      <button className='bg-amber-400 w-20 rounded border-amber-500 border-2 active:scale-95'
+      onClick={()=>{
+        if (index>1) {
+          setIndex(index-1)
+        }
+        
+      }}
+      >Prev</button>
+      <button className='bg-amber-400 w-20 rounded border-amber-500 border-2 active:scale-95'
+      onClick={()=>{
+        setIndex(index+1)
+      }}
+      >Next</button>
+    </div>
+
     </>
   )
 }
